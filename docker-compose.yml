@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test_app
+
+  app:
+    build:
+      context: server
+      dockerfile: ../docker/Dockerfile
+    image: django_example:latest
+    ports:
+      - "8000:8000"  # local:container
+    environment:
+      DBNAME: test_app
+      DBHOST: mysql
+      DBUSER: root
+      DBPASSWORD: root
+      DBPORT: 3306
